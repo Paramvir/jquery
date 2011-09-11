@@ -5,3 +5,4 @@ jQuery.unique = Sizzle.uniqueSort;
 jQuery.text = Sizzle.getText;
 jQuery.isXMLDoc = Sizzle.isXML;
 jQuery.contains = Sizzle.contains;
+Sizzle.attr = jQuery.attr;
