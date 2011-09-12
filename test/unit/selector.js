@@ -103,7 +103,7 @@ testIframe("selector", "attributes - jQuery.attr", function( jQuery, window ) {
 	t( "Attribute Exists", "[indeterminate]",  []);
 	t( "Attribute Exists", "[ismap]",          ["img1"]);
 	t( "Attribute Exists", "[itemscope]",      ["div1"]);
-	// t( "Attribute Exists", "[loop]",           ["video1"]); // IE 6/7 cannot differentiate here. loop is also used on img, input, and marquee tags as well as video/audio. getAttributeNode unfortunately also retrieves the property value.
+	// t( "Attribute Exists", "[loop]",           ["video1"]); // IE 6/7 cannot differentiate here. loop is also used on img, input, and marquee tags as well as video/audio. getAttributeNode unfortunately only retrieves the property value.
 	t( "Attribute Exists", "[multiple]",       ["select1"]);
 	t( "Attribute Exists", "[muted]",          ["audio1"]);
 	// t( "Attribute Exists", "[nohref]",         ["area1"]); // IE 6/7 keep this set to false regardless of presence. The attribute node is not retrievable.
@@ -118,7 +118,7 @@ testIframe("selector", "attributes - jQuery.attr", function( jQuery, window ) {
 	t( "Attribute Exists", "[reversed]",       ["ol1"]);
 	t( "Attribute Exists", "[scoped]",         ["style1"]);
 	t( "Attribute Exists", "[seamless]",       ["iframe1"]);
-	// t( "Attribute Exists", "[selected]",       ["option1"]); // IE8's querySelectorAll checks the property here. The attribute node is not retrievaable.
+	// t( "Attribute Exists", "[selected]",       ["option1"]); // IE8's querySelectorAll fails here. Redirecting to oldSizzle would work, but it would require an additional support test as well as a check for the selected attribute within the qsa logic
 	t( "Attribute Exists", "[truespeed]",      ["marquee1"]);
 
 	// Enumerated attributes (these are not boolean content attributes)
@@ -126,4 +126,6 @@ testIframe("selector", "attributes - jQuery.attr", function( jQuery, window ) {
 		t( "Enumerated attribute", "[" + val + "]", ["div1"]);
 	});
 	t( "Enumerated attribute", "[spellcheck]", ["span1"]);
+
+	// t( "tabindex selector does not retrieve all elements in IE6/7(#8473)", "form, [tabindex]", ["form1", "text1"]); // Uncomment this when the tabindex attrHook is deprecated
 });
