@@ -519,15 +519,19 @@ boolHook = {
 
 // IE6/7 do not support getting/setting some attributes with get/setAttribute
 if ( !jQuery.support.getSetAttribute ) {
-	
+
+	var fixSpecified = {
+		name: true,
+		id: true
+	};
+
 	// Use this for any attribute in IE6/7
 	// This fixes almost every IE6/7 issue
 	nodeHook = jQuery.valHooks.button = {
 		get: function( elem, name ) {
 			var ret;
 			ret = elem.getAttributeNode( name );
-			// Return undefined if nodeValue is empty string
-			return ret && ret.nodeValue !== "" ?
+			return ret && (fixSpecified[ name ] ? ret.nodeValue !== "" : ret.specified) ?
 				ret.nodeValue :
 				undefined;
 		},
